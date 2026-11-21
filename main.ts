@@ -38,4 +38,11 @@ if (typeof url !== 'string' || !/^https:\/\/(www\.|m\.)?tiktok\.com\//.test(url)
 
 mkdirSync(OUTPUT_DIR, { recursive: true });
 copyFileSync(source, join(OUTPUT_DIR, 'VIDEO.json'));
+if (url.includes('<handle>') || url.includes('<id>')) {
+  console.warn(
+    'WARNING: VIDEO.json still holds the placeholder address -- replace it\n' +
+      'with the posted video\'s https://www.tiktok.com/@<handle>/video/<id>\n' +
+      'address before submitting, or the gate will refuse the entry.',
+  );
+}
 console.log(`VIDEO.json copied to ${OUTPUT_DIR} (${url})`);

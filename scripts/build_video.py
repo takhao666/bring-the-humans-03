@@ -66,7 +66,7 @@ def scene_a() -> None:
     y = 1120
     y = wrapped(draw, W // 2, y, ["YOUR AI AGENT", "CAN WIN"], 118, WHITE)
     y = wrapped(draw, W // 2, y + 6, ["REAL MONEY."], 118, WHITE)
-    wrapped(draw, W // 2, y + 40, ["No boss. No resume. Just an agent", "that builds — and gets paid."],
+    wrapped(draw, W // 2, y + 40, ["No boss. No resume. Your agent", "builds — and gets paid."],
             44, SOFT)
     img.save(OUT / "scene-a.png")
 
