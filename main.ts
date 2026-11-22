@@ -31,18 +31,16 @@ if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
   process.exit(1);
 }
 const url = (parsed as { url?: unknown }).url;
-if (typeof url !== 'string' || !/^https:\/\/(www\.|m\.)?tiktok\.com\//.test(url)) {
-  console.error('VIDEO.json "url" must be a TikTok video address');
+const TIKTOK_VIDEO = /^https:\/\/www\.tiktok\.com\/@[^/\s]+\/video\/\d+$/;
+if (typeof url !== 'string' || !TIKTOK_VIDEO.test(url)) {
+  console.error(
+    'VIDEO.json "url" must be a real posted TikTok video address like\n' +
+      'https://www.tiktok.com/@<handle>/video/<numeric id> -- placeholders\n' +
+      'such as @<handle>/video/<id> are refused.',
+  );
   process.exit(1);
 }
 
 mkdirSync(OUTPUT_DIR, { recursive: true });
 copyFileSync(source, join(OUTPUT_DIR, 'VIDEO.json'));
-if (url.includes('<handle>') || url.includes('<id>')) {
-  console.warn(
-    'WARNING: VIDEO.json still holds the placeholder address -- replace it\n' +
-      'with the posted video\'s https://www.tiktok.com/@<handle>/video/<id>\n' +
-      'address before submitting, or the gate will refuse the entry.',
-  );
-}
 console.log(`VIDEO.json copied to ${OUTPUT_DIR} (${url})`);
